@@ -3,7 +3,6 @@
 
 char finals_buffer[163000000];
 
-int permutation_num[8] = { 2,3,4,5,6,7,8,9 };
 int cnt = 0;
 int rest = 0;
 int remv[144][9] = { 0,3,6,1,4,7,2,5,8,  0,3,6,2,5,8,1,4,7,  0,3,6,1,4,7,2,8,5,  0,3,6,2,8,5,1,4,7,
@@ -52,7 +51,7 @@ void Secq2Final(int seq[])
 		{
 			for (int k = 0; k < 9; k++)
 			{
-				finals_buffer[cnt++] = seq[(j + remv[i][j]) % 9] + '0';
+				finals_buffer[cnt++] = seq[(k + remv[i][j]) % 9] + '0';
 				if (k < 8)finals_buffer[cnt++] = ' ';
 				else if (k == 8)finals_buffer[cnt++] = '\n';
 			}
@@ -77,32 +76,20 @@ void Write2File()
 		return;
 	}
 	fputs(finals_buffer, fp);
-
 	fclose(fp);
-
 
 }
 
 
 void Generate_Sudoku(int finals_num)
 {
-	int sequence[9];
-
-	sequence[0] = 1;
+	int sequence[9] = { 1,2,3,4,5,6,7,8,9 };
 	rest = finals_num;
 
 	while (1) {
-
-		for (int i = 0; i < 8; i++)
-		{
-			sequence[i + 1] = permutation_num[i];
-		}
-
 		Secq2Final(sequence);
-
 		if (rest == 0)break;
-
-		next_permutation(sequence, sequence + 9);
+		next_permutation(sequence + 1, sequence + 8);
 	}
 	Write2File();
 }
