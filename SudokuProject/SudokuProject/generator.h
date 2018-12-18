@@ -3,6 +3,7 @@
 #include<vector>
 #include<fstream>
 #include"common.h"
+#include <stdio.h>
 using namespace std;
 
 struct Sudoku {
@@ -14,3 +15,4 @@ struct Sudoku {
 };
 
 void Generate_Sudoku(int finals_num);
+

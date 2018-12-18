@@ -7,8 +7,7 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-	//clock_t start, finish;
-	//start = clock();
+
 	if (argc == 3 && strcmp(argv[1], "-c") == 0)
 	{
 		int len = strlen(argv[2]);
@@ -43,9 +42,7 @@ int main(int argc, char *argv[])
 	else {
 		cout << "Input Error!" << endl;
 	}
-	//finish = clock();
-	//double totaltime = (double)(finish - start) / CLOCKS_PER_SEC;
-	//cout << "\n此程序的运行时间为" << totaltime << "秒！" << endl;
+	
 	cout << "Totle Time : " << (double)clock() / CLOCKS_PER_SEC << "s" << endl;
 	system("pause");
 	return 0;
