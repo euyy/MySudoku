@@ -1,7 +1,5 @@
 #pragma once
 #include<algorithm>
-#include<vector>
-#include<fstream>
 #include"common.h"
 #include <stdio.h>
 using namespace std;
