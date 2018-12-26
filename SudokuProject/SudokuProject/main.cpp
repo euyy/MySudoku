@@ -24,13 +24,13 @@ int main(int argc, char *argv[])
 			}
 		}
 		if (flag == 0) {
-			cout << "finals number is:" << finals_num << endl;
+			//cout << "finals number is:" << finals_num << endl;
 			Generate_Sudoku(finals_num);
 		}
 	}
 	else if (argc == 3 && strcmp(argv[1], "-s") == 0)
 	{
-		Solve_Sudoku();
+		Solve_Sudoku(argv[2]);
 	}
 	else {
 		cout << "Input Error!" << endl;
