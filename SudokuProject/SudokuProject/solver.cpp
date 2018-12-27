@@ -1,21 +1,8 @@
 #pragma once
 #include"solver.h"
 
-
-
-
 const int FALSE = 0;
 const int TRUE = 1;
-
-struct Puzzles {
-	int sudoku[9][9];//数独谜题
-	int map[9][9];//每个格子有几个数可以填写
-	int row[9];//每一行有哪些数可以填写
-	int col[9];//每一列有哪些数可以填写
-	int matrix[3][3];//每一个3*3方阵有哪些数可以填写
-	int empty;//还有几个未填写的格子
-};
-
 
 char result_set[163000000];
 int cnt1 = 0;
@@ -39,7 +26,6 @@ void Init(Puzzles &puz)
 	puz.empty = 81;
 }
 
-
 void Generate_Map(Puzzles &puz)
 {
 	for (int i = 0; i < 9; i++)
@@ -56,12 +42,10 @@ void Generate_Map(Puzzles &puz)
 	}
 }
 
-
 Puzzles ReadPuzzle(FILE* fr)
 {
 	Puzzles puz;
 	Init(puz);
-	char ch;
 	char str[20];
 
 	for (int i = 0; i < 9; i++)
@@ -99,9 +83,6 @@ Puzzles ReadPuzzle(FILE* fr)
 	return puz;
 }
 
-
-
-
 int CheckSudoku(Puzzles puz)
 {
 	for (int i = 0; i < 9; i++)
@@ -121,7 +102,6 @@ int CheckSudoku(Puzzles puz)
 	}
 	return TRUE;
 }
-
 
 int InBit(int x)
 {
@@ -155,6 +135,7 @@ void Set_Num(Puzzles &puz)
 			int num = InBit(puz.map[i][j]);
 			if (num != FALSE) {
 				Maintain(puz, i, j, num);
+				//return;
 			}
 		}
 	}
@@ -174,22 +155,25 @@ void BackTrace(int t, Puzzles &puz) {
 			BackTrace(t + 1, puz);
 			return;
 		}
-
-		vector<int> able_set;
+		int able_set[9];
+		int cnt = 0;
+		//vector<int> able_set;
 		int matr_i = row / 3;
 		int matr_j = col / 3;
 		int able = puz.row[row] & puz.col[col] & puz.matrix[matr_i][matr_j];
 		for (int i = 0; i < 9; i++)
 		{
 			if ((able % 2) == 1)
-				able_set.push_back(i + 1);
+				able_set[cnt++] = i + 1;
+				//able_set.push_back(i + 1);
 			able /= 2;
 		}
-		for (int i = 0; i < able_set.size(); i++)
+		for (int i = 0; i < cnt; i++)
 		{
 			Puzzles temp = puz;
 			Maintain(temp, row, col, able_set[i]);
 			if (CheckSudoku(temp) == TRUE)
+				//if ((1 + (int)(rand() % 10)) > 8)Set_Num(temp);
 				BackTrace(t + 1, temp);
 		}
 	}
@@ -243,15 +227,10 @@ void Solve_Sudoku(char addr[])
 
 	char ch = '1';
 	do {
-		//cout << "----------------------------start-----------------------------" << endl;
 		if (ch == '\n')result_set[cnt1++] = '\n';
 		puz = ReadPuzzle(fr);
-	//	PrintPuz(puz);
-		Set_Num(puz);
 		Solve(puz);
 
 	} while ((ch = fgetc(fr)) != EOF);
 	Write2File1();
-
-
 }

@@ -1,8 +1,8 @@
 #include"generator.h"
 #pragma warning(disable : 4996)
 
-char finals_buffer[163000000];
 
+char finals_buffer[163000000];
 int cnt = 0;
 int rest = 0;
 int remv[144][9] = { 0,3,6,1,4,7,2,5,8,  0,3,6,2,5,8,1,4,7,  0,3,6,1,4,7,2,8,5,  0,3,6,2,8,5,1,4,7,
